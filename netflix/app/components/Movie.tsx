@@ -176,7 +176,7 @@ const Modal: React.FC<ModalProps> = ({ name, bgColor, textColor }) => {
                       ?.episodes.map((episode: Episode) => (
                         <div
                           key={episode.id}
-                          className="flex gap-4 border-b border-gray-800 pb-4 group cursor-pointer hover:bg-gray-800/30 rounded p-2"
+                          className="flex text-white gap-4 border-b border-gray-800 pb-4 group cursor-pointer hover:bg-gray-800/30 rounded p-2"
                         >
                           <div className="relative w-32 h-20 flex-shrink-0">
                             <Image
