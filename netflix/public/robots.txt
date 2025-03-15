@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: 
+
+User-agent: Googlebot
+Disallow: 
+
+User-agent: Bingbot
+Disallow: 
+
+User-agent: Yandex
+Disallow: 
+
+Sitemap: https://www.netflix.egeuysal.com/sitemap.xml   

@@ -1,0 +1,30 @@
+{
+    "name": "Netflix",
+    "short_name": "Netflix",
+    "description": "Watch TV shows, movies, and original content anytime, anywhere.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#E50914",
+    "icons": [
+      {
+        "src": "/icons/icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/icons/icon-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any maskable"
+      }
+    ],
+    "orientation": "any",
+    "categories": ["entertainment", "streaming"],
+    "prefer_related_applications": false,
+    "lang": "en",
+    "dir": "ltr",
+    "scope": "/",
+    "id": "netflix-webapp"
+  }

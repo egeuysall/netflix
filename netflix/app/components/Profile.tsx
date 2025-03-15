@@ -8,7 +8,7 @@ interface ProfileProps {
 
 const Profile: React.FC<ProfileProps> = ({ fullName, profileLink }) => {
   return (
-    <Link href="/main">
+    <Link href="/browse">
       <div className="flex items-center flex-col justify-center gap-2 text-neutral-500 text-md">
         <Image
           src={profileLink}

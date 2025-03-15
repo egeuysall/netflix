@@ -3,10 +3,12 @@ import React, { useState } from "react";
 import Image from "next/image";
 import seasons from "../seasons";
 
-interface ModalProps {
+interface MovieProps {
   name: string;
   bgColor: string;
   textColor: string;
+  children?: React.ReactNode;
+  triggerType?: 'button' | 'custom';
 }
 
 interface Episode {
@@ -17,26 +19,38 @@ interface Episode {
   description: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ name, bgColor, textColor }) => {
+const Movie: React.FC<MovieProps> = ({ 
+  name, 
+  bgColor, 
+  textColor, 
+  children,
+  triggerType = 'button'
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedSeason, setSelectedSeason] = useState(1);
 
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const openMovie = () => setIsOpen(true);
+  const closeMovie = () => setIsOpen(false);
 
   return (
     <>
-      <button
-        onClick={openModal}
-        className={`px-6 py-2 ${bgColor} ${textColor} font-semibold rounded-sm text-lg`}
-      >
-        {name}
-      </button>
+      {triggerType === 'button' ? (
+        <button
+          onClick={openMovie}
+          className={`px-6 py-2 ${bgColor} ${textColor} font-semibold rounded-sm text-lg`}
+        >
+          {name}
+        </button>
+      ) : (
+        <div onClick={openMovie} className="cursor-pointer">
+          {children}
+        </div>
+      )}
 
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/80 flex justify-center items-center z-50"
-          onClick={closeModal}
+          onClick={closeMovie}
         >
           <div
             className="bg-neutral-900 rounded-lg w-[90%] max-w-5xl h-[90vh] overflow-hidden"
@@ -47,7 +61,7 @@ const Modal: React.FC<ModalProps> = ({ name, bgColor, textColor }) => {
               style={{ scrollbarWidth: "thin" }}
             >
               <button
-                onClick={closeModal}
+                onClick={closeMovie}
                 className="absolute top-4 right-4 text-white bg-black/40 w-8 h-8 rounded-full flex items-center justify-center z-10 hover:bg-black/60 transition-colors"
               >
                 <svg
@@ -128,7 +142,7 @@ const Modal: React.FC<ModalProps> = ({ name, bgColor, textColor }) => {
                         </span>
                       </div>
                       <p className="text-gray-300">
-                      The Latin American Revolution was a series of uprisings in the early 19th century, where leaders like Simón Bolívar and José de San Martín fought for independence from Spanish and Portuguese rule.
+                        The Latin American Revolution was a series of uprisings in the early 19th century, where leaders like Simón Bolívar and José de San Martín fought for independence from Spanish and Portuguese rule.
                       </p>
                     </div>
                     <div>
@@ -157,14 +171,6 @@ const Modal: React.FC<ModalProps> = ({ name, bgColor, textColor }) => {
                           Season {season.id}
                         </option>
                       ))}
-                      <div className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                        <Image
-                          src="/icons/chevron-down.svg"
-                          alt="Select season"
-                          width={16}
-                          height={16}
-                        />
-                      </div>
                     </div>
                   </div>
 
@@ -174,9 +180,9 @@ const Modal: React.FC<ModalProps> = ({ name, bgColor, textColor }) => {
                       ?.episodes.map((episode: Episode) => (
                         <div
                           key={episode.id}
-                          className="flex text-white gap-4 pb-4 group cursor-pointer rounded p-2"
+                          className="block md:flex text-white gap-4 pb-4 group cursor-pointer rounded p-2"
                         >
-                          <div className="relative w-32 h-20 flex-shrink-0">
+                          <div className="relative w-32 h-20 flex-shrink-0 mb-4">
                             <Image
                               src={episode.thumbnail}
                               alt={`Episode ${episode.id}`}
@@ -185,12 +191,6 @@ const Modal: React.FC<ModalProps> = ({ name, bgColor, textColor }) => {
                             />
                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                               <div className="bg-black/50 rounded-full p-2">
-                                <Image
-                                  src="/icons/play-icon.svg"
-                                  alt="Play"
-                                  width={16}
-                                  height={16}
-                                />
                               </div>
                             </div>
                           </div>
@@ -201,7 +201,7 @@ const Modal: React.FC<ModalProps> = ({ name, bgColor, textColor }) => {
                                 {episode.duration}
                               </span>
                             </div>
-                            <p className="text-sm text-gray-400 mt-1">
+                            <p className="text-sm text-gray-400">
                               {episode.description}
                             </p>
                           </div>
@@ -218,4 +218,4 @@ const Modal: React.FC<ModalProps> = ({ name, bgColor, textColor }) => {
   );
 };
 
-export default Modal;
+export default Movie;

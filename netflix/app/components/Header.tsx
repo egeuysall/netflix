@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <div className="w-full flex items-center justify-between bg-neutral-900/25 p-3 backdrop-blur-sm border border-neutral-800/50 rounded-lg">
       <nav className="flex items-center gap-8">
-        <Link href="/main" className="flex-shrink-0">
+        <Link href="/" className="flex-shrink-0">
           <Image
             src="/logo/netflix.svg"
             width={86}
@@ -14,9 +14,9 @@ export default function Header() {
             className="object-contain"
           />
         </Link>
-        <ul className="flex text-white text-sm gap-6 items-center">
+        <ul className="text-white text-sm gap-6 items-center hidden lg:flex">
           <li>
-            <Link href="/home" className="hover:text-gray-400">
+            <Link href="/browse" className="hover:text-gray-400">
               Home
             </Link>
           </li>
