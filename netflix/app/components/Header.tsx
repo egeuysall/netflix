@@ -3,17 +3,18 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <div className=" mx-auto flex items-center justify-between">
-      <nav className="flex gap-12">
-        <Link href="/main">
+    <div className="w-full flex items-center justify-between bg-neutral-900/25 p-3 backdrop-blur-sm border border-neutral-800/50 rounded-lg">
+      <nav className="flex items-center gap-8">
+        <Link href="/main" className="flex-shrink-0">
           <Image
             src="/logo/netflix.svg"
-            width={96}
-            height={96}
+            width={86}
+            height={86}
             alt="Netflix Logo"
+            className="object-contain"
           />
         </Link>
-        <ul className="flex text-white text-sm gap-6">
+        <ul className="flex text-white text-sm gap-6 items-center">
           <li>
             <Link href="/home" className="hover:text-gray-400">
               Home
@@ -46,30 +47,32 @@ export default function Header() {
           </li>
         </ul>
       </nav>
-      <div className="flex items-center gap-6">
-        <Link href="/main">
+      <div className="flex items-center gap-4">
+        <Link href="/main" className="flex items-center justify-center hover:opacity-80">
           <Image
             src="/search.svg"
-            width={28}
-            height={28}
+            width={24}
+            height={24}
             alt="Search Icon"
+            className="object-contain"
           />
         </Link>
-        <Link href="/main">
+        <Link href="/main" className="flex items-center justify-center hover:opacity-80">
           <Image
             src="/bell.svg"
-            width={28}
-            height={28}
+            width={24}
+            height={24}
             alt="Bell Icon"
+            className="object-contain"
           />
         </Link>
-        <Link href="/main">
+        <Link href="/main" className="flex items-center justify-center hover:opacity-80">
           <Image
             src="/profile1.png"
-            width={36}
-            height={36}
+            width={32}
+            height={32}
             alt="Profile Icon"
-            className="rounded-sm"
+            className="rounded-sm object-contain"
           />
         </Link>
       </div>

@@ -11,16 +11,13 @@ const montserrat = Montserrat({
 
 export default function Home() {
   return (
-    <div
-      className={`${montserrat.className} bg-neutral-900 flex w-screen items-center justify-center`}
-    >
-      <div className="h-screen bg-neutral-900 w-5/6 md:w-11/12 mt-4 overflow-y-auto">
-        <header className="pt-4">
-          <nav>
-            <Header />
-          </nav>
-        </header>
+    <div className={`${montserrat.className} min-h-screen bg-neutral-900 overflow-x-hidden`}>
+      <div className="w-full fixed top-0 z-50 px-4 py-6 mb-8 md:px-8">
+        <Header />
+      </div>
 
+      <main className="relative w-5/6 md:w-11/12 mx-auto pt-20 pb-16">
+        {/* Hero Section */}
         <section className="relative h-[80vh] w-full">
           <div className="absolute inset-0 mt-8">
             <Image
@@ -36,7 +33,9 @@ export default function Home() {
               Revuelta
             </h1>
             <p className="text-lg mb-6 line-clamp-3 text-white">
-            The Latin American Revolution was a series of uprisings in the early 19th century, where leaders like Simón Bolívar and José de San Martín fought for independence from Spanish and Portuguese rule.
+              The Latin American Revolution was a series of uprisings in the early
+              19th century, where leaders like Simón Bolívar and José de San
+              Martín fought for independence from Spanish and Portuguese rule.
             </p>
             <div className="flex gap-3">
               <Movie name="Play" bgColor="bg-white" textColor="text-black" />
@@ -49,11 +48,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* My List */}
-        <section className="mb-8 mt-8 h-1/4">
+        {/* My List Section */}
+        <section className="mt-8 mb-16">
           <h2 className="text-xl font-semibold mb-4 text-white">My List</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2 md:gap-4">
-            {/* Single Manual Card */}
+            {/* Single Card */}
             <div className="group relative rounded-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:z-10">
               <Link href="/movie" className="block">
                 <Image
@@ -70,7 +69,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </div>
+      </main>
     </div>
   );
 }

@@ -134,16 +134,14 @@ const Modal: React.FC<ModalProps> = ({ name, bgColor, textColor }) => {
                     <div>
                       <div className="text-gray-400 text-sm">
                         <p>
-                          <span className="text-gray-500">Cast:</span> Actor
-                          Name, Actor Name, Actor Name
+                          <span className="text-gray-500">Cast:</span> Ege Uysal
                         </p>
                         <p className="mt-2">
-                          <span className="text-gray-500">Genres:</span> Action,
-                          Drama, Thriller
+                          <span className="text-gray-500">Genres:</span> Drama, Political, War
                         </p>
                         <p className="mt-2">
                           <span className="text-gray-500">This show is:</span>{" "}
-                          Ominous, Dark
+                          Gripping, Authentic
                         </p>
                       </div>
                     </div>
@@ -176,7 +174,7 @@ const Modal: React.FC<ModalProps> = ({ name, bgColor, textColor }) => {
                       ?.episodes.map((episode: Episode) => (
                         <div
                           key={episode.id}
-                          className="flex text-white gap-4 border-b border-gray-800 pb-4 group cursor-pointer hover:bg-gray-800/30 rounded p-2"
+                          className="flex text-white gap-4 pb-4 group cursor-pointer rounded p-2"
                         >
                           <div className="relative w-32 h-20 flex-shrink-0">
                             <Image
