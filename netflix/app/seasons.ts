@@ -28,7 +28,7 @@ const seasons = [
       },
       {
         id: 4,
-        title: "Independence at Last: The Plan of Iguala",
+        title: "The Plan of Iguala",
         duration: "68",
         thumbnail: "/episodes/morelos.jpeg",
         description:
