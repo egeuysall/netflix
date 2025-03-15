@@ -23,7 +23,7 @@ export default function Home() {
         <section className="relative h-[80vh] w-full">
           <div className="absolute inset-0 mt-8">
             <Image
-              src="/profile1.png"
+              src="/cover.png"
               alt="Featured Movie"
               fill
               className="object-cover rounded-md"
@@ -32,12 +32,10 @@ export default function Home() {
           </div>
           <div className="relative h-full flex flex-col justify-end p-6 md:p-12 max-w-3xl">
             <h1 className="text-4xl md:text-6xl font-bold mb-4 text-white">
-              Stranger Things
+              Latin American Revolution
             </h1>
             <p className="text-lg mb-6 line-clamp-3 text-white">
-              When a young boy vanishes, a small town uncovers a mystery
-              involving secret experiments, terrifying supernatural forces and
-              one strange little girl.
+            Brave leaders and ordinary people rise up against Spanish and Portuguese rule, fighting for freedom and independence in a dramatic struggle that shapes Latin America’s future.
             </p>
             <div className="flex gap-3">
               <button className="bg-white text-black hover:bg-white/90 font-semibold px-6 py-2 text-lg rounded-sm">
@@ -51,14 +49,14 @@ export default function Home() {
         </section>
 
         {/* My List */}
-        <section className="mb-8 mt-8">
+        <section className="mb-8 mt-8 h-1/4">
           <h2 className="text-xl font-semibold mb-4 text-white">My List</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2 md:gap-4">
             {/* Single Manual Card */}
             <div className="group relative rounded-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:z-10">
               <Link href="#" className="block">
                 <Image
-                  src="/placeholder.svg"
+                  src="/revuelta.png"
                   alt="Movie"
                   width={600}
                   height={400}
