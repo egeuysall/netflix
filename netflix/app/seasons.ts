@@ -8,7 +8,7 @@ const seasons = [
         duration: "63m",
         thumbnail: "/episodes/dolores.jpeg",
         description:
-          "After a series of mysterious events, the community begins to question the actions of local officials.",
+          `On September 16, 1810, Father Miguel Hidalgo issued the Grito de Dolores, a revolutionary call to arms, by ringing church bells in Dolores, Mexico, and encouraging his parishioners to rise against Spanish authority. This "Cry of Dolores" ignited the Mexican War of Independence and is remembered yearly as Mexico's Independence Day.`,
       },
       {
         id: 2,
@@ -16,7 +16,7 @@ const seasons = [
         duration: "57m",
         thumbnail: "/episodes/hidalgo.webp",
         description:
-          "As corruption becomes more evident, a small group of residents decide to take action.",
+          "Following initial triumphs, Hidalgo mysteriously withdrew from Mexico City, losing momentum. In January 1811, his inadequately prepared men suffered a disastrous loss at Calderón Bridge. Hidalgo escaped north after being stripped of his military leadership by other insurgents. He was betrayed, caught on March 21, and murdered by firing squad on July 30, 1811.",
       },
       {
         id: 3,
@@ -24,7 +24,7 @@ const seasons = [
         duration: "49m",
         thumbnail: "/episodes/iguala.png",
         description:
-          "The conflict escalates as the community faces violent resistance from those in power.",
+          `José María Morelos envisioned an autonomous Mexico based on equality and justice. The revolutionary priest pushed for the abolition of slavery, the redistribution of land, universal education, and the removal of racial hierarchies. His "Sentimientos de la Nación" envisioned a sovereign country where authority flowed from the people, regardless of socioeconomic class or background..`,
       },
       {
         id: 4,
@@ -32,7 +32,7 @@ const seasons = [
         duration: "68",
         thumbnail: "/episodes/morelos.jpeg",
         description:
-          "The conflict escalates as the community faces violent resistance from those in power.",
+          "The Plan of Iguala, issued on February 24, 1821, by Iturbide and Guerrero during Mexico's War of Independence (not the Mexican Revolution), provided three guarantees: Catholicism as the national religion, independence from Spain, and social equality. It envisioned a constitutional monarchy, which ultimately led to Mexican independence.",
       },
     ],
   }

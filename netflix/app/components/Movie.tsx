@@ -135,8 +135,8 @@ const Movie: React.FC<MovieProps> = ({
                         <span className="text-green-500 font-bold">
                           98% Match
                         </span>
-                        <span className="text-neutral-500 text-md">2023</span>
-                        <span className="text-neutral-500 text-md">16+</span>
+                        <span className="text-neutral-500 text-md">1810</span>
+                        <span className="text-neutral-500 text-md">18+</span>
                         <span className="text-neutral-500 text-md">
                           1 Season
                         </span>
