@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import seasons from "../seasons";
 
@@ -28,6 +28,30 @@ const Movie: React.FC<MovieProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedSeason, setSelectedSeason] = useState(1);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Client-side only code
+  useEffect(() => {
+    setIsMounted(true);
+    
+    // Cleanup function
+    return () => {
+      if (isOpen) {
+        document.body.style.overflow = '';
+      }
+    };
+  }, [isOpen]);
+
+  // Handle body scroll when modal is open
+  useEffect(() => {
+    if (!isMounted) return;
+    
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [isOpen, isMounted]);
 
   const openMovie = () => setIsOpen(true);
   const closeMovie = () => setIsOpen(false);
@@ -47,7 +71,7 @@ const Movie: React.FC<MovieProps> = ({
         </div>
       )}
 
-      {isOpen && (
+      {isMounted && isOpen && (
         <div
           className="fixed inset-0 bg-black/80 flex justify-center items-center z-50"
           onClick={closeMovie}
