@@ -24,7 +24,7 @@ const seasons = [
         duration: "49m",
         thumbnail: "/episodes/iguala.png",
         description:
-          `José María Morelos envisioned an autonomous Mexico based on equality and justice. The revolutionary priest pushed for the abolition of slavery, the redistribution of land, universal education, and the removal of racial hierarchies. His "Sentimientos de la Nación" envisioned a sovereign country where authority flowed from the people, regardless of socioeconomic class or background..`,
+          `José María Morelos envisioned an autonomous Mexico based on equality and justice. The revolutionary priest pushed for the abolition of slavery, the redistribution of land, universal education, and the removal of racial hierarchies. His "Sentimientos de la Nación" envisioned a sovereign country where authority flowed from the people, regardless of socioeconomic class or background.`,
       },
       {
         id: 4,
