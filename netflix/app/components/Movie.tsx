@@ -293,6 +293,7 @@ const Movie: React.FC<MovieProps> = ({
                                 alt="Play"
                                 width={16}
                                 height={16}
+                                className="invert"
                               />
                             </div>
                           </div>
