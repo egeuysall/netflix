@@ -1,6 +1,6 @@
 # Netflix Clone
 
-A simplified Netflix clone built with Next.js, React, TypeScript, and Tailwind CSS. This project replicates some core features of Netflix, including a manually curated movie catalog and a favorites list.
+A simplified Netflix clone built with Next.js, React, TypeScript, and Tailwind CSS. This project replicates some core features of Netflix, including a manually curated movie catalog and a favorites list. Feel free to contribute and improve this project! 🚀
 
 ## Features
 
@@ -45,8 +45,4 @@ A simplified Netflix clone built with Next.js, React, TypeScript, and Tailwind C
 ## License
 
 This project is open-source and available under the [Apache 2.0 License](LICENSE).
-
----
-
-Feel free to contribute and improve this project! 🚀
 
