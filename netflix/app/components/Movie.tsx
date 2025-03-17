@@ -105,12 +105,12 @@ const Movie: React.FC<MovieProps> = ({
       {triggerType === 'button' ? (
         <button
           onClick={openMovie}
-          className={`px-6 py-2 ${bgColor} ${textColor} font-semibold rounded-sm text-lg`}
+          className={`px-6 py-2 ${bgColor} ${textColor} font-semibold rounded-sm text-lg hover:brightness-110 transition-all duration-200`}
         >
           {name}
         </button>
       ) : (
-        <div onClick={openMovie} className="cursor-pointer">
+        <div onClick={openMovie} className="cursor-pointer transform transition-transform duration-200 hover:scale-105">
           {children}
         </div>
       )}
@@ -126,7 +126,7 @@ const Movie: React.FC<MovieProps> = ({
           >
             <div
               className="relative h-full overflow-y-auto"
-              style={{ scrollbarWidth: "thin" }}
+              style={{ scrollbarWidth: "thin", scrollbarColor: "#404040 #262626" }}
             >
               <button
                 onClick={closeMovie}
@@ -145,4 +145,184 @@ const Movie: React.FC<MovieProps> = ({
                   strokeLinejoin="round"
                 >
                   <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1=" ▋
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+
+              <main>
+                <section className="relative">
+                  <div className="relative w-full h-[56.25vw] max-h-[70vh]">
+                    <Image
+                      src={movieInfo.coverImage}
+                      alt={`${movieInfo.title} Cover`}
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent" />
+                  </div>
+
+                  <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
+                    <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
+                      {movieInfo.title}
+                    </h1>
+                    <div className="flex gap-3 mb-4 items-center">
+                      <button 
+                        className="bg-white text-black py-2 px-6 rounded-md flex items-center font-semibold hover:bg-opacity-80 transition"
+                        aria-label="Play"
+                      >
+                        <Image
+                          src="/icons/play.svg"
+                          alt="Play"
+                          width={18}
+                          height={18}
+                          className="mr-2"
+                        />
+                        Play
+                      </button>
+                      <button 
+                        className="bg-gray-500/40 text-white p-2 rounded-full flex items-center justify-center hover:bg-gray-500/60 transition backdrop-blur-sm w-8 h-8 outline-2 outline-neutral-400"
+                        aria-label="Add to My List"
+                      >
+                        <Image
+                          src="/icons/plus.svg"
+                          alt="Add to My List"
+                          width={18}
+                          height={18}
+                        />
+                      </button>
+                      <button 
+                        className="bg-gray-500/40 text-white p-2 rounded-full flex items-center justify-center hover:bg-gray-500/60 transition backdrop-blur-sm w-8 h-8 outline-2 outline-neutral-400"
+                        aria-label="Like"
+                      >
+                        <Image
+                          src="/icons/up.svg"
+                          alt="Like"
+                          width={18}
+                          height={18}
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </section>
+
+                <div className="p-6 md:p-12 pt-4">
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <div className="md:col-span-2">
+                      <div className="flex items-center gap-4 mb-4">
+                        {movieInfo.matchPercentage && (
+                          <span className="text-green-500 font-bold">
+                            {movieInfo.matchPercentage}% Match
+                          </span>
+                        )}
+                        {movieInfo.releaseYear && (
+                          <span className="text-neutral-500 text-md">{movieInfo.releaseYear}</span>
+                        )}
+                        {movieInfo.ageRating && (
+                          <span className="text-neutral-500 text-md border px-1 border-neutral-500">{movieInfo.ageRating}</span>
+                        )}
+                        {movieInfo.seasonCount && (
+                          <span className="text-neutral-500 text-md">
+                            {movieInfo.seasonCount} {movieInfo.seasonCount === 1 ? 'Season' : 'Seasons'}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-gray-300">{movieInfo.description}</p>
+                    </div>
+                    <div>
+                      <div className="text-gray-400 text-sm">
+                        {movieInfo.cast.length > 0 && (
+                          <p>
+                            <span className="text-gray-500">Cast:</span> {movieInfo.cast.join(', ')}
+                          </p>
+                        )}
+                        {movieInfo.genres.length > 0 && (
+                          <p className="mt-2">
+                            <span className="text-gray-500">Genres:</span> {movieInfo.genres.join(', ')}
+                          </p>
+                        )}
+                        {movieInfo.traits.length > 0 && (
+                          <p className="mt-2">
+                            <span className="text-gray-500">This show is:</span>{" "}
+                            {movieInfo.traits.join(', ')}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="px-6 md:px-12 pb-12">
+                  <div className="flex items-center mb-6">
+                    <h2 className="text-xl font-bold text-white">Episodes</h2>
+                    {seasons.length > 1 && (
+                      <div className="ml-4 relative">
+                        <select 
+                          value={selectedSeason}
+                          onChange={handleSeasonChange}
+                          className="bg-neutral-800 text-white p-2 rounded"
+                          aria-label="Select season"
+                        >
+                          {seasons.map((season) => (
+                            <option key={season.id} value={season.id}>
+                              Season {season.id}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="space-y-4">
+                    {currentSeason?.episodes.map((episode: Episode) => (
+                      <div
+                        key={episode.id}
+                        className="block md:flex text-white gap-4 pb-4 group cursor-pointer rounded-md p-2 hover:bg-neutral-800 transition-all duration-200"
+                      >
+                        <div className="relative w-32 h-20 flex-shrink-0 mb-4 md:mb-0 overflow-hidden rounded">
+                          <Image
+                            src={episode.thumbnail}
+                            alt={`Episode ${episode.id}: ${episode.title}`}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-100 scale-75">
+                            <div className="bg-black/60 rounded-full p-2.5 w-10 h-10 flex items-center justify-center">
+                              <Image 
+                                src="/icons/play.svg"
+                                alt="Play"
+                                width={20}
+                                height={20}
+                                className="invert"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex justify-between">
+                            <h3 className="font-medium group-hover:text-white text-gray-100 transition-colors duration-200">
+                              <span className="text-gray-400 group-hover:text-gray-300 transition-colors duration-200">{episode.id}.</span> {episode.title}
+                            </h3>
+                            <span className="text-gray-400 text-sm">
+                              {episode.duration}
+                            </span>
+                          </div>
+                          <p className="text-sm text-gray-400 mt-1 group-hover:text-gray-300 transition-colors duration-200">
+                            {episode.description}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </main>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default Movie;
