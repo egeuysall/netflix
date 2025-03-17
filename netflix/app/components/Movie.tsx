@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { seasons } from "../seasons";
+import seasons from "../seasons";
 
 // Define comprehensive interfaces for all data types
 interface Episode {
@@ -38,7 +38,6 @@ interface MovieProps {
   children?: React.ReactNode;
   triggerType?: 'button' | 'custom';
   movieData?: MovieMetadata; // Optional movie data for dynamic content
-  seasons?: Season[]; // Optional seasons data
 }
 
 const Movie: React.FC<MovieProps> = ({ 
@@ -47,15 +46,11 @@ const Movie: React.FC<MovieProps> = ({
   textColor, 
   children,
   triggerType = 'button',
-  movieData,
-  seasons: seasonsProp
+  movieData
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedSeason, setSelectedSeason] = useState<number>(1);
   const [isMounted, setIsMounted] = useState<boolean>(false);
-
-  // Use provided seasons data or default imported seasons
-  const availableSeasons: Season[] = seasonsProp || seasons;
 
   // Set default movie data if not provided
   const defaultMovieData: MovieMetadata = {
@@ -103,7 +98,7 @@ const Movie: React.FC<MovieProps> = ({
     setSelectedSeason(parseInt(e.target.value, 10));
   };
 
-  const currentSeason = availableSeasons.find(season => season.id === selectedSeason);
+  const currentSeason = seasons.find(season => season.id === selectedSeason);
 
   return (
     <>
@@ -260,7 +255,7 @@ const Movie: React.FC<MovieProps> = ({
                 <div className="px-6 md:px-12 pb-12">
                   <div className="flex items-center mb-6">
                     <h2 className="text-xl font-bold text-white">Episodes</h2>
-                    {availableSeasons.length > 1 && (
+                    {seasons.length > 1 && (
                       <div className="ml-4 relative">
                         <select 
                           value={selectedSeason}
@@ -268,7 +263,7 @@ const Movie: React.FC<MovieProps> = ({
                           className="bg-neutral-800 text-white p-2 rounded"
                           aria-label="Select season"
                         >
-                          {availableSeasons.map((season) => (
+                          {seasons.map((season) => (
                             <option key={season.id} value={season.id}>
                               Season {season.id}
                             </option>
