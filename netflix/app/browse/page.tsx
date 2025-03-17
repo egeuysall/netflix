@@ -2,13 +2,53 @@ import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import Header from "../components/Header";
 import Movie from "../components/Movie";
+import React from "react";
 
+// Define font with proper typing
 const montserrat = Montserrat({
   weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
-export default function Home() {
+// Define movie data interface
+interface MovieData {
+  id: string;
+  title: string;
+  description: string;
+  coverImage: string;
+  progress?: number; // Optional progress percentage
+}
+
+// Define movie component props interface
+interface MovieProps {
+  name: string;
+  bgColor: string;
+  textColor: string;
+  triggerType?: "default" | "custom";
+  children?: React.ReactNode;
+  onClick?: () => void;
+}
+
+// Sample data with proper typing
+const featuredMovie: MovieData = {
+  id: "featured-001",
+  title: "Revuelta",
+  description: "The Latin American Revolution was a series of uprisings in the early 19th century, where leaders like Simón Bolívar and José de San Martín fought for independence from Spanish and Portuguese rule.",
+  coverImage: "/cover.png",
+};
+
+const myListMovies: MovieData[] = [
+  {
+    id: "movie-001",
+    title: "Revuelta",
+    description: "A historical drama about the Latin American Revolution",
+    coverImage: "/revuelta.png",
+    progress: 65,
+  },
+  // Additional movies could be added here
+];
+
+export default function Home(): JSX.Element {
   return (
     <div
       className={`${montserrat.className} min-h-screen bg-neutral-900 overflow-x-hidden`}
@@ -28,30 +68,34 @@ export default function Home() {
               triggerType="custom"
             >
               <Image
-                src="/cover.png"
-                alt="Featured Movie"
+                src={featuredMovie.coverImage}
+                alt={featuredMovie.title}
                 fill
                 className="object-cover rounded-md"
+                priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent rounded-md" />
             </Movie>
           </div>
           <div className="relative h-full flex flex-col justify-end p-6 md:p-12 max-w-3xl">
             <h1 className="text-4xl md:text-6xl font-bold mb-4 text-white">
-              Revuelta
+              {featuredMovie.title}
             </h1>
             <p className="text-lg mb-6 line-clamp-3 text-white">
-              The Latin American Revolution was a series of uprisings in the
-              early 19th century, where leaders like Simón Bolívar and José de
-              San Martín fought for independence from Spanish and Portuguese
-              rule.
+              {featuredMovie.description}
             </p>
             <div className="flex gap-3">
-              <Movie name="Play" bgColor="bg-white" textColor="text-black" />
+              <Movie 
+                name="Play" 
+                bgColor="bg-white" 
+                textColor="text-black" 
+                onClick={() => console.log(`Playing ${featuredMovie.title}`)}
+              />
               <Movie
                 name="More Info"
                 bgColor="bg-gray-500/70"
                 textColor="text-white"
+                onClick={() => console.log(`More info about ${featuredMovie.title}`)}
               />
             </div>
           </div>
@@ -61,28 +105,39 @@ export default function Home() {
         <section className="mt-8 mb-16">
           <h2 className="text-xl font-semibold mb-4 text-white">My List</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2 md:gap-4">
-            {/* Single Card */}
-            <div className="group relative rounded-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:z-10">
-              <Movie
-                name="More Info"
-                bgColor="bg-gray-500/70"
-                textColor="text-white"
-                triggerType="custom"
+            {/* Map through movies with proper typing */}
+            {myListMovies.map((movie: MovieData) => (
+              <div 
+                key={movie.id}
+                className="group relative rounded-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:z-10"
               >
-                <div className="relative">
-                  <Image
-                    src="/revuelta.png"
-                    alt="Movie"
-                    width={600}
-                    height={400}
-                    className="object-cover aspect-video"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-600">
-                    <div className="h-full bg-red-600 w-[65%]" />
+                <Movie
+                  name="More Info"
+                  bgColor="bg-gray-500/70"
+                  textColor="text-white"
+                  triggerType="custom"
+                  onClick={() => console.log(`Selected movie: ${movie.title}`)}
+                >
+                  <div className="relative">
+                    <Image
+                      src={movie.coverImage}
+                      alt={movie.title}
+                      width={600}
+                      height={400}
+                      className="object-cover aspect-video"
+                    />
+                    {movie.progress !== undefined && (
+                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-600">
+                        <div 
+                          className="h-full bg-red-600"
+                          style={{ width: `${movie.progress}%` }}
+                        />
+                      </div>
+                    )}
                   </div>
-                </div>
-              </Movie>
-            </div>
+                </Movie>
+              </div>
+            ))}
           </div>
         </section>
       </main>
