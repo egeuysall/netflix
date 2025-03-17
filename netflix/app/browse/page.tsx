@@ -19,17 +19,6 @@ interface MovieData {
   progress?: number; // Optional progress percentage
 }
 
-// Define movie component props interface
-interface MovieProps {
-  name: string;
-  bgColor: string;
-  textColor: string;
-  triggerType?: "default" | "custom";
-  children?: React.ReactNode;
-  onClick?: () => void;
-}
-
-// Sample data with proper typing
 const featuredMovie: MovieData = {
   id: "featured-001",
   title: "Revuelta",
@@ -67,14 +56,16 @@ export default function Home(): JSX.Element {
               textColor="text-white"
               triggerType="custom"
             >
-              <Image
-                src={featuredMovie.coverImage}
-                alt={featuredMovie.title}
-                fill
-                className="object-cover rounded-md"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent rounded-md" />
+              <div className="relative w-full h-full">
+                <Image
+                  src={featuredMovie.coverImage}
+                  alt={featuredMovie.title}
+                  fill
+                  className="object-cover rounded-md"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent rounded-md" />
+              </div>
             </Movie>
           </div>
           <div className="relative h-full flex flex-col justify-end p-6 md:p-12 max-w-3xl">
@@ -105,8 +96,7 @@ export default function Home(): JSX.Element {
         <section className="mt-8 mb-16">
           <h2 className="text-xl font-semibold mb-4 text-white">My List</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2 md:gap-4">
-            {/* Map through movies with proper typing */}
-            {myListMovies.map((movie: MovieData) => (
+            {myListMovies.map((movie) => (
               <div 
                 key={movie.id}
                 className="group relative rounded-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:z-10"
@@ -118,13 +108,12 @@ export default function Home(): JSX.Element {
                   triggerType="custom"
                   onClick={() => console.log(`Selected movie: ${movie.title}`)}
                 >
-                  <div className="relative">
+                  <div className="relative w-full aspect-video">
                     <Image
                       src={movie.coverImage}
                       alt={movie.title}
-                      width={600}
-                      height={400}
-                      className="object-cover aspect-video"
+                      fill
+                      className="object-cover"
                     />
                     {movie.progress !== undefined && (
                       <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-600">
