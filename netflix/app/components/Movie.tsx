@@ -300,7 +300,7 @@ const Movie: React.FC<MovieProps> = ({
                         <div className="flex-1">
                           <div className="flex justify-between">
                             <h3 className="font-medium">
-                              <span className="text-neutral-400">{episode.id}.</span> {episode.title}
+                              <span className="text-gray-400">{episode.id}.</span> {episode.title}
                             </h3>
                             <span className="text-gray-400 text-sm">
                               {episode.duration}
