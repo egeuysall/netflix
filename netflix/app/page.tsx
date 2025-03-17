@@ -1,12 +1,21 @@
 import { Montserrat } from "next/font/google";
 import Profile from "./components/Profile";
+import { FC } from "react";
 
+// Define the font configuration
 const montserrat = Montserrat({
   weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
-export default function Open() {
+// Define prop types for the Profile component
+interface ProfileProps {
+  fullName: string;
+  profileLink: string;
+}
+
+// Type the Open component
+const Open: FC = () => {
   return (
     <div
       className={`h-screen w-screen flex items-center justify-center bg-neutral-900 font-semibold flex-col gap-8 ${montserrat.className}`}
@@ -24,4 +33,6 @@ export default function Open() {
       </div>
     </div>
   );
-}
+};
+
+export default Open;
