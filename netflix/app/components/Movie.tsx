@@ -105,12 +105,12 @@ const Movie: React.FC<MovieProps> = ({
       {triggerType === 'button' ? (
         <button
           onClick={openMovie}
-          className={`px-6 py-2 ${bgColor} ${textColor} font-semibold rounded-sm text-lg hover:brightness-110 transition-all duration-200`}
+          className={`px-6 py-2 ${bgColor} ${textColor} font-semibold rounded-sm text-lg`}
         >
           {name}
         </button>
       ) : (
-        <div onClick={openMovie} className="cursor-pointer transform transition-transform duration-200 hover:scale-105">
+        <div onClick={openMovie} className="cursor-pointer">
           {children}
         </div>
       )}
@@ -126,7 +126,7 @@ const Movie: React.FC<MovieProps> = ({
           >
             <div
               className="relative h-full overflow-y-auto"
-              style={{ scrollbarWidth: "thin", scrollbarColor: "#404040 #262626" }}
+              style={{ scrollbarWidth: "thin" }}
             >
               <button
                 onClick={closeMovie}
@@ -219,7 +219,7 @@ const Movie: React.FC<MovieProps> = ({
                           <span className="text-neutral-500 text-md">{movieInfo.releaseYear}</span>
                         )}
                         {movieInfo.ageRating && (
-                          <span className="text-neutral-500 text-md border px-1 border-neutral-500">{movieInfo.ageRating}</span>
+                          <span className="text-neutral-500 text-md">{movieInfo.ageRating}</span>
                         )}
                         {movieInfo.seasonCount && (
                           <span className="text-neutral-500 text-md">
@@ -277,23 +277,22 @@ const Movie: React.FC<MovieProps> = ({
                     {currentSeason?.episodes.map((episode: Episode) => (
                       <div
                         key={episode.id}
-                        className="block md:flex text-white gap-4 pb-4 group cursor-pointer rounded-md p-2 hover:bg-neutral-800 transition-all duration-200"
+                        className="block md:flex text-white gap-4 pb-4 group cursor-pointer rounded p-2 hover:bg-neutral-800/50 transition-colors"
                       >
-                        <div className="relative w-32 h-20 flex-shrink-0 mb-4 md:mb-0 overflow-hidden rounded">
+                        <div className="relative w-32 h-20 flex-shrink-0 mb-4 md:mb-0">
                           <Image
                             src={episode.thumbnail}
                             alt={`Episode ${episode.id}: ${episode.title}`}
                             fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            className="object-cover rounded"
                           />
-                          <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-100 scale-75">
-                            <div className="bg-black/60 rounded-full p-2.5 w-10 h-10 flex items-center justify-center">
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div className="bg-black/50 rounded-full p-2">
                               <Image 
                                 src="/icons/play.svg"
                                 alt="Play"
-                                width={20}
-                                height={20}
+                                width={16}
+                                height={16}
                                 className="invert"
                               />
                             </div>
@@ -301,14 +300,14 @@ const Movie: React.FC<MovieProps> = ({
                         </div>
                         <div className="flex-1">
                           <div className="flex justify-between">
-                            <h3 className="font-medium group-hover:text-white text-gray-100 transition-colors duration-200">
-                              <span className="text-gray-400 group-hover:text-gray-300 transition-colors duration-200">{episode.id}.</span> {episode.title}
+                            <h3 className="font-medium">
+                              <span className="text-gray-400">{episode.id}.</span> {episode.title}
                             </h3>
                             <span className="text-gray-400 text-sm">
                               {episode.duration}
                             </span>
                           </div>
-                          <p className="text-sm text-gray-400 mt-1 group-hover:text-gray-300 transition-colors duration-200">
+                          <p className="text-sm text-gray-400 mt-1">
                             {episode.description}
                           </p>
                         </div>
