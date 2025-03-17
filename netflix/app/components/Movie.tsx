@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import seasons from "../seasons";
+import { seasons } from "../seasons";
 
 // Define comprehensive interfaces for all data types
 interface Episode {
@@ -18,7 +18,7 @@ interface Season {
   episodes: Episode[];
 }
 
-interface MovieMetadata {
+export interface MovieMetadata {
   title: string;
   matchPercentage?: number;
   releaseYear?: number;
@@ -31,17 +31,17 @@ interface MovieMetadata {
   coverImage: string;
 }
 
-interface MovieProps {
+export interface MovieProps {
   name: string;
   bgColor: string;
   textColor: string;
   children?: React.ReactNode;
   triggerType?: 'button' | 'custom';
-  onClick?: () => void; // Added onClick handler
+  onClick?: () => void;
   movieData?: MovieMetadata;
 }
 
-const Movie: React.FC<MovieProps> = ({ 
+export default function Movie({ 
   name, 
   bgColor, 
   textColor, 
@@ -49,10 +49,10 @@ const Movie: React.FC<MovieProps> = ({
   triggerType = 'button',
   onClick,
   movieData
-}) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedSeason, setSelectedSeason] = useState<number>(1);
-  const [isMounted, setIsMounted] = useState<boolean>(false);
+}: MovieProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedSeason, setSelectedSeason] = useState(1);
+  const [isMounted, setIsMounted] = useState(false);
 
   // Set default movie data if not provided
   const defaultMovieData: MovieMetadata = {
@@ -68,7 +68,7 @@ const Movie: React.FC<MovieProps> = ({
     coverImage: "/cover.png"
   };
 
-  const movieInfo: MovieMetadata = movieData || defaultMovieData;
+  const movieInfo = movieData || defaultMovieData;
   
   // Client-side only code
   useEffect(() => {
@@ -93,18 +93,28 @@ const Movie: React.FC<MovieProps> = ({
     }
   }, [isOpen, isMounted]);
 
-  const openMovie = (): void => {
+  const openMovie = () => {
     setIsOpen(true);
-    if (onClick) onClick(); // Call the onClick handler if provided
+    if (onClick) onClick();
   };
   
-  const closeMovie = (): void => setIsOpen(false);
+  const closeMovie = () => setIsOpen(false);
   
-  const handleSeasonChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+  const handleSeasonChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSeason(parseInt(e.target.value, 10));
   };
 
   const currentSeason = seasons.find(season => season.id === selectedSeason);
+
+  if (!isMounted) {
+    return triggerType === 'button' ? (
+      <button className={`px-6 py-2 ${bgColor} ${textColor} font-semibold rounded-sm text-lg`}>
+        {name}
+      </button>
+    ) : (
+      <div className="cursor-pointer">{children}</div>
+    );
+  }
 
   return (
     <>
@@ -121,14 +131,14 @@ const Movie: React.FC<MovieProps> = ({
         </div>
       )}
 
-      {isMounted && isOpen && (
+      {isOpen && (
         <div
           className="fixed inset-0 bg-black/80 flex justify-center items-center z-50"
           onClick={closeMovie}
         >
           <div
             className="bg-neutral-900 rounded-lg w-[90%] max-w-5xl h-[90vh] overflow-hidden"
-            onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
           >
             <div
               className="relative h-full overflow-y-auto"
@@ -280,7 +290,7 @@ const Movie: React.FC<MovieProps> = ({
                   </div>
 
                   <div className="space-y-4">
-                    {currentSeason?.episodes.map((episode: Episode) => (
+                    {currentSeason?.episodes.map((episode) => (
                       <div
                         key={episode.id}
                         className="block md:flex text-white gap-4 pb-4 group cursor-pointer rounded p-2 hover:bg-neutral-800/50 transition-colors"
@@ -328,6 +338,4 @@ const Movie: React.FC<MovieProps> = ({
       )}
     </>
   );
-};
-
-export default Movie;
+}
