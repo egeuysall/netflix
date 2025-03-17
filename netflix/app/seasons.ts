@@ -32,7 +32,7 @@ const seasons = [
         duration: "68",
         thumbnail: "/episodes/morelos.jpeg",
         description:
-          "The Plan of Iguala, issued on February 24, 1821, by Iturbide and Guerrero during Mexico's War of Independence (not the Mexican Revolution), provided three guarantees: Catholicism as the national religion, independence from Spain, and social equality. It envisioned a constitutional monarchy, which ultimately led to Mexican independence.",
+          "The Plan of Iguala, issued on February 24, 1821, by Iturbide and Guerrero during Mexico's War of Independence, provided three guarantees: Catholicism as the national religion, independence from Spain, and social equality. It envisioned a constitutional monarchy, which ultimately led to Mexican independence.",
       },
     ],
   }
