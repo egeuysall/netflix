@@ -1,7 +1,7 @@
 import "./globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
 import LayoutWrapper from "./components/LayoutWrapper";
-import Head from "next/head";
+import { Metadata } from "next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,25 +13,33 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
+// Define base URL for consistency
+const BASE_URL = "https://www.netflix.egeuysal.com";
+
+// Define metadata with proper types
+export const metadata: Metadata = {
   title: {
     default: "Netflix – Watch Movies & TV Shows Online",
     template: "%s | Netflix",
   },
   description:
     "Stream unlimited movies, TV shows, and exclusive originals anytime, anywhere. No ads, no commitments. Sign up and start watching today!",
-  metadataBase: new URL("https://www.netflix.egeuysal.com"),
-  author: "Netflix",
-  keywords: "Netflix, streaming service, watch movies online, TV shows, original series, binge-watch, unlimited streaming, on-demand content, Netflix originals, blockbuster films, trending series, award-winning content, HD streaming, 4K streaming, no ads, watch anytime, online entertainment, best streaming platform, movie streaming, TV streaming, sign up for Netflix.",
+  metadataBase: new URL(BASE_URL),
+  authors: [{ name: "Netflix" }],
+  keywords: [
+    "Netflix", "streaming service", "watch movies online", "TV shows", 
+    "original series", "binge-watch", "unlimited streaming", "on-demand content", 
+    "Netflix originals", "blockbuster films", "trending series", 
+    "award-winning content", "HD streaming", "4K streaming", "no ads", 
+    "watch anytime", "online entertainment", "best streaming platform", 
+    "movie streaming", "TV streaming", "sign up for Netflix"
+  ],
   openGraph: {
     title: "Netflix",
     description:
       "Stream unlimited movies, TV shows, and exclusive originals anytime, anywhere. No ads, no commitments. Sign up and start watching today!",
-    url: "https://www.netflix.egeuysal.com",
-    image: "/seo/og-netflix.png",
-    type: "website",
-    locale: "en_US",
-    site_name: "Ege Uysal",
+    url: BASE_URL,
+    siteName: "Netflix by Ege Uysal",
     images: [
       {
         url: "/seo/og-netflix.png",
@@ -40,6 +48,8 @@ export const metadata = {
         alt: "Netflix Logo",
       },
     ],
+    type: "website",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
@@ -47,7 +57,7 @@ export const metadata = {
     title: "Netflix",
     description:
       "Stream unlimited movies, TV shows, and exclusive originals anytime, anywhere. No ads, no commitments. Sign up and start watching today!",
-    image: "/seo/og-netflix.png",
+    images: ["/seo/og-netflix.png"],
     creator: "@netflix",
   },
   icons: {
@@ -55,18 +65,50 @@ export const metadata = {
     apple: "/apple-touch-icon.png",
     shortcut: "/icon.ico",
   },
-  manifest: "manifest.json",
+  manifest: "/manifest.json",
   robots: "index, follow",
-  canonical: "https://www.egeuysal.com",
-  charset: "UTF-8",
+  alternates: {
+    canonical: BASE_URL,
+  },
   viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0",
   themeColor: "#000000",
-  appleMobileWebAppCapable: "yes",
-  appleMobileWebAppStatusBarStyle: "black-translucent", // Translucent bar for mobile apps
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Netflix",
+  },
 };
 
-// Basic data fetching logic for JSON‑LD
-async function getProduct() {
+// Define interfaces for data structure
+interface ProductData {
+  name: string;
+  image: string;
+  description: string;
+}
+
+interface CreatorData {
+  "@type": string;
+  name: string;
+  jobTitle: string;
+  worksFor: {
+    "@type": string;
+    name: string;
+  };
+}
+
+interface JsonLdData {
+  "@context": string;
+  "@type": string;
+  name: string;
+  image: string;
+  description: string;
+  url: string;
+  creator: CreatorData;
+  sameAs: string[];
+}
+
+// Typed data fetching function
+async function getProduct(): Promise<ProductData> {
   return {
     name: "Netflix",
     image: "/seo/og-netflix.png",
@@ -75,16 +117,17 @@ async function getProduct() {
   };
 }
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+// Generate JSON-LD with proper typing
+async function generateJsonLd(): Promise<JsonLdData> {
   const product = await getProduct();
-
-  const jsonLd = {
+  
+  return {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
     name: product.name,
     image: product.image,
     description: product.description,
-    url: "https://www.egeuysal.com/",
+    url: BASE_URL,
     creator: {
       "@type": "Person",
       name: "Ege Uysal",
@@ -100,44 +143,25 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       "https://www.instagram.com/egeuysalo",
     ],
   };
+}
+
+// Layout component with proper typing
+export default async function RootLayout({ 
+  children 
+}: { 
+  children: React.ReactNode 
+}) {
+  const jsonLd = await generateJsonLd();
 
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Head>
-          <meta charSet="UTF-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <meta name="robots" content="index, follow" />
-          <meta name="author" content="Ege Uysal" />
-          <link rel="icon" href="icon.ico" />
-          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-          <link rel="manifest" href="/manifest.json" />
-          <link rel="canonical" href="https://www.egeuysal.com" />
-          <meta name="theme-color" content="#2e2e2e" />
-          <title>Ege Uysal</title>
-          
-          {/* Open Graph Metadata */}
-          <meta property="og:title" content="Ege Uysal" />
-          <meta property="og:description" content="Explore the portfolio of Ege Uysal, a creative professional in photography, web development, and UI/UX design. Showcasing innovative work and creative solutions." />
-          <meta property="og:url" content="https://www.egeuysal.com" />
-          <meta property="og:image" content="/seo/netflix.png" />
-          <meta property="og:type" content="website" />
-
-          {/* Twitter Metadata */}
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:site" content="@egecreates" />
-          <meta name="twitter:title" content="Ege Uysal" />
-          <meta name="twitter:description" content="Explore the portfolio of Ege Uysal, a creative professional in photography, web development, and UI/UX design. Showcasing innovative work and creative solutions." />
-          <meta name="twitter:image" content="/assets/og-portfolio.png" />
-
-          {/* Schema.org JSON-LD */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify(jsonLd),
-            }}
-          />
-        </Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd),
+          }}
+        />
         <LayoutWrapper jsonLdData={jsonLd}>{children}</LayoutWrapper>
       </body>
     </html>
