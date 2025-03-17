@@ -65,7 +65,7 @@ const Header: FC = () => {
   ];
 
   return (
-    <div className="w-full flex items-center justify-between bg-neutral-900/50 p-3 backdrop-blur-md border border-neutral-800/50 rounded-lg">
+    <div className="w-full flex items-center justify-between bg-neutral-900/40 p-3 backdrop-blur-lg border border-neutral-800/50 rounded-md">
       <nav className="flex items-center gap-8">
         <Link href="/" className="flex-shrink-0">
           <Image
