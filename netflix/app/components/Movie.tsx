@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { seasons } from "../seasons";
+import seasons from "../seasons";
 
 // Define comprehensive interfaces for all data types
 interface Episode {
@@ -18,7 +18,7 @@ interface Season {
   episodes: Episode[];
 }
 
-export interface MovieMetadata {
+interface MovieMetadata {
   title: string;
   matchPercentage?: number;
   releaseYear?: number;
@@ -31,28 +31,26 @@ export interface MovieMetadata {
   coverImage: string;
 }
 
-export interface MovieProps {
+interface MovieProps {
   name: string;
   bgColor: string;
   textColor: string;
   children?: React.ReactNode;
   triggerType?: 'button' | 'custom';
-  onClick?: () => void;
-  movieData?: MovieMetadata;
+  movieData?: MovieMetadata; // Optional movie data for dynamic content
 }
 
-export default function Movie({ 
+const Movie: React.FC<MovieProps> = ({ 
   name, 
   bgColor, 
   textColor, 
   children,
   triggerType = 'button',
-  onClick,
   movieData
-}: MovieProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedSeason, setSelectedSeason] = useState(1);
-  const [isMounted, setIsMounted] = useState(false);
+}) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedSeason, setSelectedSeason] = useState<number>(1);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   // Set default movie data if not provided
   const defaultMovieData: MovieMetadata = {
@@ -68,7 +66,7 @@ export default function Movie({
     coverImage: "/cover.png"
   };
 
-  const movieInfo = movieData || defaultMovieData;
+  const movieInfo: MovieMetadata = movieData || defaultMovieData;
   
   // Client-side only code
   useEffect(() => {
@@ -93,28 +91,14 @@ export default function Movie({
     }
   }, [isOpen, isMounted]);
 
-  const openMovie = () => {
-    setIsOpen(true);
-    if (onClick) onClick();
-  };
+  const openMovie = (): void => setIsOpen(true);
+  const closeMovie = (): void => setIsOpen(false);
   
-  const closeMovie = () => setIsOpen(false);
-  
-  const handleSeasonChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSeasonChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     setSelectedSeason(parseInt(e.target.value, 10));
   };
 
   const currentSeason = seasons.find(season => season.id === selectedSeason);
-
-  if (!isMounted) {
-    return triggerType === 'button' ? (
-      <button className={`px-6 py-2 ${bgColor} ${textColor} font-semibold rounded-sm text-lg`}>
-        {name}
-      </button>
-    ) : (
-      <div className="cursor-pointer">{children}</div>
-    );
-  }
 
   return (
     <>
@@ -131,14 +115,14 @@ export default function Movie({
         </div>
       )}
 
-      {isOpen && (
+      {isMounted && isOpen && (
         <div
           className="fixed inset-0 bg-black/80 flex justify-center items-center z-50"
           onClick={closeMovie}
         >
           <div
             className="bg-neutral-900 rounded-lg w-[90%] max-w-5xl h-[90vh] overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
           >
             <div
               className="relative h-full overflow-y-auto"
@@ -290,7 +274,7 @@ export default function Movie({
                   </div>
 
                   <div className="space-y-4">
-                    {currentSeason?.episodes.map((episode) => (
+                    {currentSeason?.episodes.map((episode: Episode) => (
                       <div
                         key={episode.id}
                         className="block md:flex text-white gap-4 pb-4 group cursor-pointer rounded p-2 hover:bg-neutral-800/50 transition-colors"
@@ -309,7 +293,6 @@ export default function Movie({
                                 alt="Play"
                                 width={16}
                                 height={16}
-                                className="invert"
                               />
                             </div>
                           </div>
@@ -338,4 +321,6 @@ export default function Movie({
       )}
     </>
   );
-}
+};
+
+export default Movie;
