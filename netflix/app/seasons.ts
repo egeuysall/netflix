@@ -1,4 +1,17 @@
-const seasons = [
+interface Episode {
+  id: number;
+  title: string;
+  duration: string;
+  thumbnail: string;
+  description: string;
+}
+
+interface Season {
+  id: number;
+  episodes: Episode[];
+}
+
+const seasons: Season[] = [
   {
     id: 1,
     episodes: [
@@ -29,7 +42,7 @@ const seasons = [
       {
         id: 4,
         title: "The Plan of Iguala",
-        duration: "68",
+        duration: "68m",
         thumbnail: "/episodes/morelos.jpeg",
         description:
           "The Plan of Iguala, issued on February 24, 1821, by Iturbide and Guerrero during Mexico's War of Independence, provided three guarantees: Catholicism as the national religion, independence from Spain, and social equality. It envisioned a constitutional monarchy, which ultimately led to Mexican independence.",
@@ -38,14 +51,23 @@ const seasons = [
   }
 ];
 
+/**
+ * Formats a duration string from minutes to hours and minutes
+ */
 const formatDuration = (duration: string): string => {
-  const minutes = parseInt(duration.replace("m", ""));
+  const minutesStr = duration.endsWith('m') ? duration.replace("m", "") : duration;
+  const minutes = parseInt(minutesStr);
+  
+  if (isNaN(minutes)) {
+    return duration;
+  }
+  
   if (minutes >= 60) {
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
     return `${hours}h ${remainingMinutes}m`;
   }
-  return duration;
+  return `${minutes}m`;
 };
 
 seasons.forEach((season) => {
