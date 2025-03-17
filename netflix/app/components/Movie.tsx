@@ -37,7 +37,8 @@ interface MovieProps {
   textColor: string;
   children?: React.ReactNode;
   triggerType?: 'button' | 'custom';
-  movieData?: MovieMetadata; // Optional movie data for dynamic content
+  onClick?: () => void; // Added onClick handler
+  movieData?: MovieMetadata;
 }
 
 const Movie: React.FC<MovieProps> = ({ 
@@ -46,6 +47,7 @@ const Movie: React.FC<MovieProps> = ({
   textColor, 
   children,
   triggerType = 'button',
+  onClick,
   movieData
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -91,7 +93,11 @@ const Movie: React.FC<MovieProps> = ({
     }
   }, [isOpen, isMounted]);
 
-  const openMovie = (): void => setIsOpen(true);
+  const openMovie = (): void => {
+    setIsOpen(true);
+    if (onClick) onClick(); // Call the onClick handler if provided
+  };
+  
   const closeMovie = (): void => setIsOpen(false);
   
   const handleSeasonChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
@@ -293,6 +299,7 @@ const Movie: React.FC<MovieProps> = ({
                                 alt="Play"
                                 width={16}
                                 height={16}
+                                className="invert"
                               />
                             </div>
                           </div>

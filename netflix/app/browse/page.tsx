@@ -1,8 +1,8 @@
+import React from "react";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import Header from "../components/Header";
 import Movie from "../components/Movie";
-import React from "react";
 
 // Define font with proper typing
 const montserrat = Montserrat({
@@ -37,7 +37,7 @@ const myListMovies: MovieData[] = [
   // Additional movies could be added here
 ];
 
-export default function Home(): React.ReactNode {
+export default function Home() {
   return (
     <div
       className={`${montserrat.className} min-h-screen bg-neutral-900 overflow-x-hidden`}
