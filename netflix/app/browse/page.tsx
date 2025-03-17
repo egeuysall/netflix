@@ -37,7 +37,7 @@ const myListMovies: MovieData[] = [
   // Additional movies could be added here
 ];
 
-export default function Home(): JSX.Element {
+export default function Home() {
   return (
     <div
       className={`${montserrat.className} min-h-screen bg-neutral-900 overflow-x-hidden`}
