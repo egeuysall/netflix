@@ -50,7 +50,7 @@ export default function Home() {
               <Movie name="Play" bgColor="bg-white" textColor="text-black" />
               <Movie
                 name="More Info"
-                bgColor="bg-gray-500/70"
+                bgColor="bg-gray-500"
                 textColor="text-white"
               />
             </div>
