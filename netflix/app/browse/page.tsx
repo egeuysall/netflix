@@ -65,7 +65,7 @@ export default function Home() {
             <div className="group relative rounded-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:z-10">
               <Movie
                 name="More Info"
-                bgColor="bg-gray-500/70"
+                bgColor="bg-gray-500"
                 textColor="text-white"
                 triggerType="custom"
               >
